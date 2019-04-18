@@ -16,10 +16,10 @@ public class UserUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         FormLayout formLayout = new FormLayout();
         TextField usernameField = new TextField("Username");
-        DateField birtDateField = new DateField("Password");
+        DateField birthDateField = new DateField("Birth Date");
         Button saveButton = new Button("Save");
 
-        formLayout.addComponents(usernameField, birtDateField, saveButton);
+        formLayout.addComponents(usernameField, birthDateField, saveButton);
         VerticalLayout contentLayout = new VerticalLayout();
         contentLayout.setSizeFull();
         formLayout.setWidth(500,Unit.PIXELS);
@@ -31,14 +31,14 @@ public class UserUI extends UI {
         System.out.println(userService.getUserList());
         userGrid.setDataProvider(new ListDataProvider<>(userService.getUserList()));
         userGrid.addColumn(User::getUsername).setCaption("Username");
-        userGrid.addColumn(User::getBirthDate).setCaption("Year of birth");
+        userGrid.addColumn(User::getBirthDate).setCaption("Birth Date");
         contentLayout.addComponent(userGrid);
         userGrid.setSizeFull();
         saveButton.addClickListener(e-> {
-            userService.addUser(usernameField.getValue(), birtDateField.getValue());
+            userService.addUser(usernameField.getValue(), birthDateField.getValue());
             userGrid.setDataProvider(new ListDataProvider<>(userService.getUserList()));
             usernameField.setValue("");
-            birtDateField.setValue(null);
+            birthDateField.setValue(null);
         });
     }
 
